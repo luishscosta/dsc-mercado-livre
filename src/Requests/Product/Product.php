@@ -247,7 +247,13 @@ class Product
      */
     private $variations;
 
-    //TODO mapping others fields    
+    /**
+     * @var ArrayCollection
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Product\Attribute>")
+     */
+    private $attributes;
+
+    //TODO mapping others fields
 
     /**
      * Product constructor.
@@ -256,6 +262,7 @@ class Product
     {
         $this->pictures = new ArrayCollection();
         $this->variations = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
     }
 
     /**
@@ -1009,6 +1016,40 @@ class Product
     public function setVariations(Collection $values)
     {
         $this->variations = $values;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAttibutes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @param Attribute $value
+     */
+    public function addAttibute(Attribute $value)
+    {
+        $this->attributes->add($value);
+    }
+
+    /**
+     * @param Attribute $value
+     */
+    public function removeAttibute(Attribute $value)
+    {
+        $this->attributes->remove($value);
+    }
+
+    /**
+     * @param ArrayCollection $values
+     * @return Item
+     */
+    public function setAttibute(Collection $values)
+    {
+        $this->attributes = $values;
         return $this;
     }
 }

@@ -14,6 +14,9 @@ use Dsc\MercadoLivre\Requests\RequestService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
+use Exception;
 
 /**
  * Class OAuth2ClientHandler
@@ -92,7 +95,7 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
     /**
      * @return mixed
      */
-    private function refreshAccessToken($refreshToken)
+    public function refreshAccessToken($refreshToken)
     {
         $uri  = $this->meli->getEnvironment()->getOAuthUri();
         $data = [
@@ -104,9 +107,17 @@ class OAuth2ClientHandler extends Client implements HandlerInterface
                 'refresh_token' => $refreshToken
             ]
         ];
-        $response = $this->post($uri, $data);
 
-        return \GuzzleHttp\json_decode($response->getBody()->getContents());
+        try {
+
+            $response = $this->post($uri, $data);
+            return \GuzzleHttp\json_decode($response->getBody()->getContents());
+
+        } catch(Exception $e){
+
+            $response = $e->getResponse();
+            return \GuzzleHttp\json_decode($response->getBody()->getContents());
+        }
     }
 
     /**

@@ -20,7 +20,9 @@ class ProductService extends Service
     public function findProduct($code)
     {
         return $this->getResponse(
-            $this->get("/items/$code"),
+            $this->get("/items/$code", [
+                'include_attributes' => 'all'
+            ]),
             Product::class
         );
     }

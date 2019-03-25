@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 use Dsc\MercadoLivre\Requests\Product\Variation;
-use Dsc\MercadoLivre\Requests\Category\Attribute;
+use Dsc\MercadoLivre\Requests\Product\Attribute;
 use Dsc\MercadoLivre\Requests\Product\Description;
 
 class Item implements Announcement
@@ -109,7 +109,7 @@ class Item implements Announcement
 
     /**
      * @var ArrayCollection
-     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Category\Attribute>")
+     * @JMS\Type("ArrayCollection<Dsc\MercadoLivre\Requests\Product\Attribute>")
      */
     private $attributes;
 
@@ -293,9 +293,9 @@ class Item implements Announcement
 
     /**
      * @deprecated
-     * Use o servico ProductService metodo findDescription 
+     * Use o servico ProductService metodo findDescription
      * para recuperar os dados da descricao dos Anuncios
-     * 
+     *
      * @return string
      */
     public function getDescription()
@@ -444,7 +444,7 @@ class Item implements Announcement
 
     /**
      * @param ArrayCollection $values
-     * @return Variation
+     * @return Announcement
      */
     public function setAttributes(Collection $values)
     {
